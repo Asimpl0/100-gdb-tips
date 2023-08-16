@@ -1,0 +1,6 @@
+github.com/fairlyblank/md2min v0.0.0-20171213131418-39cd6e9904ac h1:MufpS7OgWOVDMM5dTYwJ3bHDlAc0/dPKUTpTLcFyi50=
+github.com/fairlyblank/md2min v0.0.0-20171213131418-39cd6e9904ac/go.mod h1:QAobgT+CwT/SRphqV6Jrz5jt3wkW9Q72QNquEvh6dLk=
+github.com/hayajo/md2pdf v0.0.0-20141219094324-5b51d2fdf159 h1:SL6/UmfFuQcYQhTOhcAbIXoY0eJEqdvb/jUBuWZPnZc=
+github.com/hayajo/md2pdf v0.0.0-20141219094324-5b51d2fdf159/go.mod h1:GgX/01BvsSw2W72XbI+G6UJ0B+XyESoODgyLVoeNAXI=
+github.com/russross/blackfriday v1.6.0 h1:KqfZb0pUVN2lYqZUYRddxF4OR8ZMURnJIG5Y3VRLtww=
+github.com/russross/blackfriday v1.6.0/go.mod h1:ti0ldHuxg49ri4ksnFxlkCfN+hvslNlmVHqNRXXJNAY=
