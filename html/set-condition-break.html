@@ -398,6 +398,35 @@ $1 = 5050
 
 <p>可以看到设定断点只在<code>i</code>的值为<code>101</code>时触发，此时打印<code>sum</code>的值为<code>5050</code>。</p>
 
+<p>对于前面已经设置过的非条件断点，我们可以通过&#34;<code>condition [bnum] exp</code>&#34;来为编号为 bum 的断点设置条件。以上述程序为例：</p>
+
+<p>```
+(gdb) info breakpoints
+Num     Type           Disp Enb Address            What
+10      breakpoint     keep y   0x0000555555555158 in main at test1.c:10
+(gdb) condition 10 i==101
+(gdb) info breakpoints
+Num     Type           Disp Enb Address            What
+10      breakpoint     keep y   0x0000555555555158 in main at test1.c:10
+        stop only if i==101
+(gdb) c
+Continuing.</p>
+
+<p>Breakpoint 10, main () at test1.c:10
+10                              sum += i;
+```</p>
+
+<p>要清除一个条件断点的条件，通过&#34;<code>condition [bnum]</code>&#34;即可。以上述程序为例：</p>
+
+<p><code>
+(gdb) condition 10
+Breakpoint 10 now unconditional.
+(gdb) info breakpoints
+Num     Type           Disp Enb Address            What
+10      breakpoint     keep y   0x0000555555555158 in main at test1.c:10
+        breakpoint already hit 1 time
+</code></p>
+
 <p>详情参见<a href="https://sourceware.org/gdb/onlinedocs/gdb/Set-Breaks.html">gdb手册</a></p>
 
 <h2>贡献者</h2>

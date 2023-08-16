@@ -444,6 +444,15 @@ Dump of assembler code from 0x4004e9 to 0x40050c:
 End of assembler dump.
 </code></pre>
 
+<h2>技巧三</h2>
+
+<p>如果想查看某一行汇编所对应的 c 代码行号，可以：</p>
+
+<p><code>
+(gdb) info line *0x000055555555518a
+Line 14 of &#34;test1.c&#34; starts at address 0x555555555160 &lt;main+23&gt; and ends at 0x5555555551bb &lt;main+114&gt;.
+</code></p>
+
 <p>详情参见<a href="https://sourceware.org/gdb/onlinedocs/gdb/Machine-Code.html">gdb手册</a></p>
 
 <h2>贡献者</h2>

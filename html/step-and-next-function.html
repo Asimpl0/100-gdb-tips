@@ -406,6 +406,87 @@ main () at a.c:13
 
 <p>可以看到gdb没有进入func函数。</p>
 
+<p>可以使用stepi命令（缩写为si）进入函数，gdb执行完一条汇编指令后停下来：</p>
+
+<p><code>
+(gdb) disass main
+Dump of assembler code for function main:
+   0x0000555555555144 &lt;+0&gt;:     push   %rbp
+   0x0000555555555145 &lt;+1&gt;:     mov    %rsp,%rbp
+   0x0000555555555148 &lt;+4&gt;:     sub    $0x10,%rsp
+   0x000055555555514c &lt;+8&gt;:     movl   $0x0,-0x4(%rbp)
+=&gt; 0x0000555555555153 &lt;+15&gt;:    call   0x555555555139 &lt;func&gt;
+   0x0000555555555158 &lt;+20&gt;:    mov    %eax,-0x4(%rbp)
+   0x000055555555515b &lt;+23&gt;:    mov    -0x4(%rbp),%eax
+   0x000055555555515e &lt;+26&gt;:    mov    %eax,%esi
+   0x0000555555555160 &lt;+28&gt;:    lea    0xe9d(%rip),%rax        # 0x555555556004
+   0x0000555555555167 &lt;+35&gt;:    mov    %rax,%rdi
+   0x000055555555516a &lt;+38&gt;:    mov    $0x0,%eax
+   0x000055555555516f &lt;+43&gt;:    call   0x555555555030 &lt;printf@plt&gt;
+   0x0000555555555174 &lt;+48&gt;:    mov    $0x0,%eax
+   0x0000555555555179 &lt;+53&gt;:    leave
+   0x000055555555517a &lt;+54&gt;:    ret
+End of assembler dump.
+(gdb) si
+func () at test1.c:4
+4       {
+(gdb) disass func
+Dump of assembler code for function func:
+=&gt; 0x0000555555555139 &lt;+0&gt;:     push   %rbp
+   0x000055555555513a &lt;+1&gt;:     mov    %rsp,%rbp
+   0x000055555555513d &lt;+4&gt;:     mov    $0x3,%eax
+   0x0000555555555142 &lt;+9&gt;:     pop    %rbp
+   0x0000555555555143 &lt;+10&gt;:    ret
+End of assembler dump.
+</code></p>
+
+<p>可以看到 gdb 进入了 func 并且每次仅执行了一条指令。</p>
+
+<p>可以使用nexti命令（缩写为ni）不进入函数，gdb执行完一条汇编指令后停下来：</p>
+
+<p><code>
+(gdb) disass main
+Dump of assembler code for function main:
+   0x0000555555555144 &lt;+0&gt;:     push   %rbp
+   0x0000555555555145 &lt;+1&gt;:     mov    %rsp,%rbp
+   0x0000555555555148 &lt;+4&gt;:     sub    $0x10,%rsp
+   0x000055555555514c &lt;+8&gt;:     movl   $0x0,-0x4(%rbp)
+=&gt; 0x0000555555555153 &lt;+15&gt;:    call   0x555555555139 &lt;func&gt;
+   0x0000555555555158 &lt;+20&gt;:    mov    %eax,-0x4(%rbp)
+   0x000055555555515b &lt;+23&gt;:    mov    -0x4(%rbp),%eax
+   0x000055555555515e &lt;+26&gt;:    mov    %eax,%esi
+   0x0000555555555160 &lt;+28&gt;:    lea    0xe9d(%rip),%rax        # 0x555555556004
+   0x0000555555555167 &lt;+35&gt;:    mov    %rax,%rdi
+   0x000055555555516a &lt;+38&gt;:    mov    $0x0,%eax
+   0x000055555555516f &lt;+43&gt;:    call   0x555555555030 &lt;printf@plt&gt;
+   0x0000555555555174 &lt;+48&gt;:    mov    $0x0,%eax
+   0x0000555555555179 &lt;+53&gt;:    leave
+   0x000055555555517a &lt;+54&gt;:    ret
+End of assembler dump.
+(gdb) ni
+0x0000555555555158      12              a = func();
+(gdb) disass main
+Dump of assembler code for function main:
+   0x0000555555555144 &lt;+0&gt;:     push   %rbp
+   0x0000555555555145 &lt;+1&gt;:     mov    %rsp,%rbp
+   0x0000555555555148 &lt;+4&gt;:     sub    $0x10,%rsp
+   0x000055555555514c &lt;+8&gt;:     movl   $0x0,-0x4(%rbp)
+   0x0000555555555153 &lt;+15&gt;:    call   0x555555555139 &lt;func&gt;
+=&gt; 0x0000555555555158 &lt;+20&gt;:    mov    %eax,-0x4(%rbp)
+   0x000055555555515b &lt;+23&gt;:    mov    -0x4(%rbp),%eax
+   0x000055555555515e &lt;+26&gt;:    mov    %eax,%esi
+   0x0000555555555160 &lt;+28&gt;:    lea    0xe9d(%rip),%rax        # 0x555555556004
+   0x0000555555555167 &lt;+35&gt;:    mov    %rax,%rdi
+   0x000055555555516a &lt;+38&gt;:    mov    $0x0,%eax
+   0x000055555555516f &lt;+43&gt;:    call   0x555555555030 &lt;printf@plt&gt;
+   0x0000555555555174 &lt;+48&gt;:    mov    $0x0,%eax
+   0x0000555555555179 &lt;+53&gt;:    leave
+   0x000055555555517a &lt;+54&gt;:    ret
+End of assembler dump.
+</code></p>
+
+<p>可以看到 gdb 没有进入func，且每次仅执行了一条指令。</p>
+
 <p>详情参见<a href="https://sourceware.org/gdb/onlinedocs/gdb/Continuing-and-Stepping.html">gdb手册</a></p>
 
 <h2>贡献者</h2>
